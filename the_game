@@ -1,0 +1,342 @@
+# Import the time module for delaying output
+import time
+
+# Save the amount of endings achieved by storing it as a varible
+endings_achieved = 0 
+
+# Define player name outside of for loop
+player_name = ''
+
+def intro(): # Introduction / Introduces the game and explains the game setting and the main objective. 
+    print("☞ Welcome to Detective's Decisions! ☜\n\nThis is an interactive text-based adventure game where you are a private detective.")
+    time.sleep(1)
+    print('Stumped, the local police department has called for your expertise to solve the case of a wealthy socialite who died during a dinner party.')
+
+def game_tut(): # Game tutorial / will repeat when player types 'help'
+    time.sleep(1)
+    print("\n☞ How to play! ☜\n\nTo select an option, type in the letter corresponding to the options displayed.\nE.g., 🚪 a) open the door    🪟 b) open the window. If you want to open the window, type 'b'\n")
+
+def explain_mech(): # Explain game mechanics
+    time.sleep(1)
+    print("If you get stuck at any point, type 'help' at any question.\nThere's no changing your input until you reach an ending, so choose wisely...\nHowever, don't worry! You can always play again and there are 7 unique endings to achieve.\n")
+
+def start(): # Prompt the player to start the game
+    time.sleep(1)
+    input("Once you're ready, press enter to dive in...")
+
+def play_again(): # If player reaches an ending, they can choose to play again or end the game.
+    play_again_input = input('\nWould you like to play again?  👍 y) yes    👎 n) no  ')
+
+    if play_again_input.lower() == 'y':
+      print('Restarting game... ⏳')
+      prologue()
+      phone_ring()
+    
+    elif play_again_input.lower() == 'n': # End Game
+      time.sleep(1)
+      print("\n☞ Thank you for playing Detective's Decisions ☜\n")
+      print(f'★ You achieved {endings_achieved}/7 endings ★\n') # Show how many endings the player achieved
+      time.sleep(1)
+      print("As the game comes to a close, you realise that the world is full of secrets and hidden agendas.\nKeep your wits about you, you'll never know where or when you'll be needed again 🕵️‍")
+      print(f'So long Detective {player_name}... for now\n')
+      time.sleep(1)
+      print("We'd love to hear your feedback! Please copy/paste this link and share your experience so we can improve your experience\nhttps://forms.gle/BA5ZaHKje3ZDXDbr9")
+    
+    elif play_again_input.lower() == 'help' : 
+      game_tut()
+      play_again()
+      
+    else:
+      print('\nInvalid input, please try again!')
+      play_again()
+      
+def ready_to_start(): # Ask if player is ready to start
+  are_you_ready = input("👍 y) yes    👎 n) no  ")
+
+  if are_you_ready.lower() == 'y': # Player is ready
+      print("\nGreat, we're counting on you. Please come with much haste.")
+      clues() # Calls to print the next part of the story
+
+  elif are_you_ready.lower() == 'n': # Player is not ready
+      print(f"\nPlease take on this case Detective {player_name}, there's no better detective out there!")
+      ready_to_start()
+  
+  elif are_you_ready.lower() == 'help': # Player needs help / prints game_tut
+      game_tut()
+      ready_to_start()
+
+  else: # Player inputs invalid option
+      print("\nPardon? I didn't quite catch that?")
+      ready_to_start()
+      
+# Prologue / the story starts
+
+def prologue(): # Shows that the player is moving forward
+    print('\n☞ Prologue ☜\n')
+
+def phone_ring(): # First question
+    global player_name, endings_achieved # use the global keyword to refer to the global variable
+    print("riiiing riiing!")
+    time.sleep(1)
+    print("The wine red rotary phone that sat on your work desk rang impatiently.")
+    answer1 = input("What will you do?   📞 a) pick up    ☎️ b) ignore  ")
+    
+    if answer1.lower() == 'a': # Player chooses to pick up the phone
+        print('\nYou hastily moved towards the phone to pick it up.\n')
+        
+        player_name = input("Good evening, Detective.... Enter your name: ") # Store Players name + provide some context
+        print(f"Detective {player_name}, this is the Waldridge police speaking. We have an urgent case that requires your immediate attention.")
+        print("Sir Alistair Ashbury was found dead at Charlston Cheswick's manor. Are you be willing to take on this case?")
+        time.sleep(1)
+        ready_to_start() 
+    
+    elif answer1.lower() == 'b': # Player chooses to ignore the phone
+        global endings_achieved
+        print('\nYou ignore the continuous ringing of your phone and sip your tea in lassitude, and decide that today is your day off.\nAs you gaze out the dark window, you notice a bird flying by... you wonder what it would be like to fly like a bird.')
+        time.sleep(1)
+    
+        endings_achieved += 1  # Ending 1/7 achieved / add 1 to the endings_achieved integer variable
+        print("\n★ ENDING 1/7 ACHIEVED ★\nWell, looks like you didn't solve the case. Maybe next time try picking up the phone and doing your job, birdbrain.\nIf detective work isn't your thing, maybe you should just quit and become a bird instead")
+        time.sleep(1)
+        play_again() # Asks if player wants to play again
+        
+    elif answer1.lower() == 'help' : # Player asks for help / types 'help'
+        game_tut()
+        phone_ring()
+          
+    else: # Player inputs invalid option
+      print('\nAs you contemplated whether to pick up the ringing phone, it stopped.\nBut before you could even let out a weary sigh, it began again.')
+      phone_ring()
+      
+# Fist Clues / Second part of the game      
+
+def clues():
+    print('\n☞ The Clues ☜\n') # Clearly shows that the story is progressing
+    time.sleep(1)
+    print("At 1:47 am, you arrive at Cheswick Manor and are greeted by the same police man you spoke with on the phone earlier, Otto O'Pierre.\nHe ushers you to the living room, where you see the lifeless body of Sir Alistair Ashbury lying on the ground.\nO'Pierre tells you that Sir Alistair's body was found after the dinner party and the police suspect that it's a murder case.\nHe tells you that police and ambulance were called at 11:56pm and Alistair was found dead before they arrived.\nWhat will you do first?\n")
+    what_to_do()
+
+def what_to_do(): # Asking player what they want to do at the mansion
+    time.sleep(1)
+    answer_2 = input("🔍 a) Inspect the body    🔦 b) Search the room   👤 c) Investigate suspects  ")
+    
+    if answer_2.lower() == "a": # Player chooses to inspect body
+        inspect_body()
+    elif answer_2.lower() == "b": # Player chooses to search room
+        search_room()
+    elif answer_2.lower() == "c": # Player chooses to investigate suspects
+        interview_suspects()
+    elif answer_2.lower() == 'help': # Player asks for help / game_tut
+        game_tut()
+        what_to_do() # loops back to this question
+    else: # Inputs invalid option 
+        print("\nYou're not sure if you want to do that right now, so you decide on something else.")
+        what_to_do()
+
+def inspect_body(): # Defining the function for inspect_body
+    time.sleep(1)
+    print("\nYou decide to take a closer look at the body and notice a line of blister on his upper lip.\nYou also notice the bottom of his shoes were still wet, from the dew, telling you he went outside not long before his death.\nMaking a mental note of this you decide that there is more investigating to do.\n")
+    what_to_do()
+          
+def search_room(): # Defining the function for search_room 
+    print("\nYou divert your attention from Ashbury and look around the room.\nIt was a cozy dining room, with the fireplace still lit, but the air eerily cold.\nAs you look around, taking in your surroundings, you see something glint in the corner of your eye.\nNear the leg of a chair was a capped small vial with a single drop of clear yellow tinted liquid left inside.\n")
+    print("You pick it up for further inspection.")
+    unknown_vial()
+
+def unknown_vial(): # player decides what to do with the vial
+    vial_input = input("What will you do?    👃 a) Sniff it    👅 b) Taste it    👮‍♂️ c) Give it to O'Pierre    \n")
+
+    time.sleep(1)
+    
+    if vial_input.lower() == 'a': # Player chooses to sniff the liquid in vial
+        print("As your curiosity gets the better of you, you lean in to sniff the unknown liquid. At first, the scent is bitter and pungent.\nBut as you take a deeper whiff, you detect a faint aroma of almonds that was almost pleasant.\nStill suspicious, you decide to hand it over to O'Pierre for further investigation with forensics\n")
+        vial_answer()
+    
+    elif vial_input.lower() == 'b': # Player chooses to taste the liquid in the vial
+        global endings_achieved
+        print("Of course, the most reasonable answer to finding a mysterious vial of liquid is to taste it, so that's what you did.\nYou immediately regretted your decision as you felt a cold, numbing sensation spread through your mouth and throat. \nWithin minutes, you began to feel dizzy and disoriented as the effects of what you can assume is poison began to set in.\nYour vision blurred and your limbs felt heavy as you struggled to stay conscious. \nDespite O'Pierre's best efforts to save you, it was too late. The poison had taken its deadly toll and you were gone.")
+        
+        endings_achieved += 1 # Ending 2/7 achieved   
+        print("\n★ ENDING 2/7 ACHIEVED ★\nWho thinks ingesting a suspicious vial of an unknown substance is a good idea?\nYou could argue that you figured out it was poison, but still, was that really the smartest move you could've made?")
+        time.sleep(1)
+        play_again()
+    
+    elif vial_input.lower() =='c' : # Player chooses to give the vial to O'Pierre
+        vial_answer()
+        
+    else: # Player inputs invalid option
+        print("As you lift the vial to your face to further inspect, you lose balance and trip backwards. \nYou let go of the vial which landed into the fireplace, and was now melted to nothing. \nYou just lost a vital piece of evidence, feeling guilty, you tell O'Pierre, who is immeasurably disappointed in you.\nAs a man of law, O'Pierre decides to cut you from this case, because you are far too clumsy to be a detective.")
+        time.sleep(1)
+      
+        endings_achieved += 1 # SECRET ending 3/7 achieved    
+        print('\n★ SECRET ENDING 3/7 ACHIEVED ★\n')
+        print("Well congratulations! You may not have solved the case...\n but you lost the main piece of evidence and made O'Pierre lose all faith in your detective skills! Good job!")
+        time.sleep(1)
+        play_again()
+
+def vial_answer(): # Shows vial to O'Pierre and finds out what was in it
+    time.sleep(1)
+    print('"Ah, we have already found that vial and sent off a drop to get tested, the results should be here any moment.\nI put it back there to help you get a better idea of the scene.\nSpeak of the devil!"\n')
+    print("Just then a man in a laboratory coat entered through the door, it was the lab technician.\n")
+    time.sleep(1)
+    print('"Pardon me, but I have the results that were contained within the vial,\nIt seems to be a concentrated form of poision called ricin which is able to cause bilstering from physically touching it.\nIt can lead to multiple organ failure even in such small doses, It is highly likely that this is what killed Sir Ashbury."\n')
+    time.sleep(1)
+    print('Already suspecting this, you decide you need to do some further investigations')
+    what_to_do()
+
+def interview_suspects(): # Defining the function for interview_suspects  
+    time.sleep(1)
+    print("\nCurious about the suspects, you ask O'Pierre where they are, who says that they are being kept in the study room due to the lack of time and keeping away from the press.\nO'Pierre tells you that there are ultimately four suspects, the others have been ruled out based on their alibis and evidence.\nYou nod and follow O'Pierre to the study room to see four individuals surrounded by police sitting rather uncomfortably.")
+    go_back()
+    
+def go_back(): # Asks if player wants to move on
+  print("\nDo you want to interrogate the potential suspects in the study room, go back to Alistair in the dining room or do you have the suspect in mind?")
+  want_to_go = input("🍽️ a) Go back    📚 b) Interrogate    🦹‍ c) Confirm the suspect    ")
+  
+  if want_to_go.lower() == 'a': # Player chooses to go back
+    print('You decide you need to search the crime scene a bit more, so you turn back to the dining room.\n')
+    what_to_do()
+          
+  elif want_to_go.lower() == 'b': # Player chooses to interrogate
+    interrogate()
+                     
+  elif want_to_go.lower() == 'c' : # Player wants to confirm suspect
+    confirm_suspect()
+                       
+  elif want_to_go.lower() == 'help': # Player asks for help
+    game_tut()
+    go_back()
+   
+  else: # inputs invalid option
+    print('Unsure what you want to do, you take a minute to decide.')
+    go_back()
+
+def interrogate(): # Asked who they want to interrogate first
+  print("\nWho will you interrogate?") 
+  suspects = input("💃 a) Miss Seraphine Saint-Claire    🧑‍💼 b) Sir Charleston Cheswick    🍴 c) Francessca Fiddle    👨‍⚕️ d) Dr Kirton Kettlewell    ")    
+  print('')
+  time.sleep(1)
+  
+  if suspects.lower() == 'a': # Chooses Seraphine 
+    print('You decide to question Miss Seraphine Saint-Claire 💃\n')
+    
+    print("Background Information: Alistairs's ex lover from 3 years ago, a famous socialite and fashion icon. They had a bitter breakup when he found out about her infidelity. Seraphine always felt unloved and neglected during their relationship, making her feel as though she was only a 'kept woman'.\n")
+    print("Alibi: Seraphine was said to have met with Alistair on the balcony earlier that night, but during the rest of the party she was with the other guests.\n")
+    print('Statement: "I did see Alistair at the party, and yes, we did speak briefly on the balcony, just for some private financial advice, but I assure you, I had nothing to do with his death. It is true that we had a complicated relationship, and he was upset with me for breaking things off. But I would never harm him. I even gave him tea when he was not feeling well."\n')
+    print("Potential Motive: It could've been out of revenge and a long-standing grudge again Alistair. Her inferiority complex caused by his success could fuel this.\n")
+    print("Physical Appearance: Seraphine is a tall striking woman who almost always has an air of confidence and poise. However, now her lips seems chapped, shes missing her right glove and is constantly rubbing her hands together and keeps looking around.\n")
+    go_back()
+    
+  elif suspects.lower() == 'b': # Chooses Charleston
+    print('You decide to question Sir Charleston Cheswick 🧑‍💼\n')
+    print("Background Information: The host of the party where Alistar was killed. One of his best mates since their young days. They are current business partners, in which their companies depend on each other. Sat next to each other during the dinner party.\n")
+    print("Alibi: Charleston has no need to harm Alistair, they have been longtime friends. As the host, there are many witnesses who can verify his whereabouts throughout the evening, such as guests and servants.\n")
+    print('Statement: "I was with Alistair for most of the night, we talked about out mutual love for vintage cars and investments. He was my closest mate.. it is my fault. All other guests were in the living room after dinner to chat and Alistair excused himself for not feeling well to go back to the living room."\n')
+    print("Potential Motive: By removing Alistair, Charleston could gain more opportunity in the market and gain immense finacial power\n")
+    print("Physical Appearance: The usually well groomed, distinguished man was in a current state of distress. His eyes were swollen from holding back tears, hair was disheveled and face pale, he didn't seem to coping with Sir Alistair's death well.")
+    go_back()
+         
+  elif suspects.lower() == 'c': # Chooses Francessca
+    print('You decide to question Francessca Fiddle 🍴\n')
+    print("Background Information: Francessca is a maid who has been working for Charleston for three years now. She used to work for Saint-Claire, but quit because she felt that Saint-Claire took advantage of her.\n")               
+    print("Alibi: Francessca was helping serve drinks in the dinning room and only left once to collect more milk, which kitchen staff can confirm. However, she was the last known person to interact with Alistair.\n")
+    print('Statement: "I don not know Alistair personally and I had nothing to do with his death. He asked for some tea, I gave some, then I went off to the kitchen to collect more fresh milk. He was already looking sickly when I was serving him, lying down, eyes shut on the the couch; but I though he was just feeling a bit ill!"\n')
+    print("Potential Motive: Francessca has no apparent motive to harm Alistair. She was just a server at the party and did not have a personal connection to him. However she could have some connection with Seraphine who has a strong motive.\n")
+    print("Physical Appearance: Francessca is a young woman who seemed visibly shaken during questioning, she kept her head down for majority of the interview. However she kept scratching her right hand. Which had turned red. Francessca has said and confirmed it is from spilling a bit of hot tea when she was rushing to serve Sir Alistair.")
+    go_back()
+
+  elif suspects.lower() == 'd': # Chooses Kirton
+    print('You decide to question Dr Kirton Kettewell 👨‍⚕️\n')
+    print("Background information: Well renowned physican for socialites and Alistair's ex-personal physician. Alistair recently found out that Dr Kettlewell had been overcharging him for his services. Alistair threatened to report him to the medical board, which would put Dr Kettlewell's reputation and livelihood on the line.\n")
+    print("Alibi: Was getting ready to leave when Alistair died, claiming to have an early morning appointment with another patient.\n")
+    print('Statement: "Look, I have got places to be tomorrow, I would never kill a man, as a doctor I took an oath. Alistair did come up to me earlier mentioning that he was feeling a bit unwell. However I hate giving out medical advice during my time-off, so I told him that he can visit tommorrow, if he is willing to pay my fair prices."\n')
+    print('Potential Motive: Kirton would feel, by removing Alistair, he could remove the fear of getting found out for his over-charged services.') 
+    go_back()
+          
+  elif suspects.lower() == 'help': # needs help
+    game_tut()
+    interrogate()
+    
+  else: # Inputs invalid option
+    go_back()
+          
+# Suspect Confirmation / Third part of the game
+def confirm_suspect():
+  print("\nAre you sure you want to confirm the suspect? You can't go back from here...")
+  full_confirm = input('👍 y) yes I confirm    👎 n) no, let me go back!  ')
+  print('')
+          
+  if full_confirm.lower() == 'y':
+    enter_suspect()
+  
+  elif full_confirm.lower() == 'n':
+    go_back()
+          
+  elif full_confirm.lower() == 'help' :
+    game_tut()
+    confirm_suspect()
+
+  else:
+    confirm_suspect()
+
+def enter_suspect():
+  global player_name, endings_achieved
+  print('☞ The Suspect ☜\n')
+  time.sleep(1)
+  print("After many hours of tireless investigating, you just couldn't shake the feeling that something isn't adding up.\nYou keep going over the all the details of each suspect in your head trying to piece together what really happened that night.\nFinally, it hits you, you realise that there's one person who had the opportunity, motive and skills to kill Alistair Ashbury. It was...")
+  suspect_input = input("💃 a) Miss Seraphine Saint-Claire    🧑‍💼 b) Sir Charleston Cheswick    🍴 c) Francessca Fiddle    👨‍⚕️ d) Dr Kirton Kettlewell    ")
+  time.sleep(1)
+          
+  if suspect_input.lower() == 'a': # Suspects Seraphine
+    endings_achieved += 1
+    print('\nYes! It was Seraphine Saint-Claire, she was the murderer.\nYour heart races as you approach her for further questioning.\nYou take a deep breath and ask, "Miss Saint-Claire, why did you do it?"\n\nSeraphine looked up at you with her blood-shot eyes.')
+    time.sleep(1)
+    print('"You have caught me.." she says, her voice barely above a whisper. "I killed him!"\n"I loved him, you see. Alistair was everything to me. But he did not love me back, oh no, he loved that filthy maid, Francessca."')
+    print('"Oh! but may I ask how I foiled my plans? I thought I prepared it very well?"\n"The tea, Miss Saint-Claire. You claimed to have served Mr. Ashbury tea, yet it was noted that Francessca Fiddle was the one who served it, seeing the tea burn on her hand."')
+    print("Seraphine's face twisted in anger, and she hissed through her teeth,")
+    print('"That meddling little wench! I should have taken care of her too."\n')
+    time.sleep(1)
+    
+    print("★ ENDING 4/7 ACHIEVED ★\n")
+    print(f"The room erupts in a cheer as you crack the case and bring justice for Alistair Ashbury who can finally rest in peace.\nCongratulations, Detective {player_name}! It was a tough case, but you managed to push through, would you say it was a cup of tea, or rather a poisonous one that could take out any other detective out there?")
+    time.sleep(1)
+    play_again()
+    
+  elif suspect_input.lower() == 'b': # Suspects Charleston
+    endings_achieved += 1
+    print('Of course, it has to be Charleston Cheswick, he is the only one who gets financial gain from the death of Ashbury, and you know what they say.. money is power.\n')
+    time.sleep(1)    
+    print("However, as you confront Charleston Cheswick, you realise that something was very much so wrong. The evidence against him was circumstantial, and he had a solid alibi for the night of the murder.\nIn fact, he had been wrongly accused of a crime he did not commit and would face unjust criminal charges\nYou feel an immense sense of guilty for jumping to conclusions and putting an innocent man through such hardship.")
+    
+    time.sleep(1)
+    print("\n★ ENDING 5/7 ACHIEVED ★\n") 
+    print(f"Unfortunately, justice has not been served. Your hasty accusation of Charleston Cheswick led to the wrongful accusation of an innocent man, and the true culprit remains free.\nAlistair Ashbury's death will continue to haunt those who knew him, knowing that his killer has not been brought to justice. You may have to live with the weight of your mistake, Detective {player_name}.\nPerhaps next time, you will take the time to gather all the evidence before making such a anguishing accusation.")
+    play_again()
+    
+  elif suspect_input.lower() == 'c': # Suspects Francessca
+    endings_achieved += 1
+    print("It has to be Francessca Fiddle, she was the last one with Alistair and considering her past employment under Saint-Claire, who still seemingly still has feelings for Alistair.\nFrancessca could have easily slipped in the poison; she even had a burn from spilling a bit of the tea!\n")
+    time.sleep(1)
+    print("However after pushing her for answers, Francessca reveals to be in a secret romance with Alistair, in which she was ashamed of, considering her lowly staus.\nImmense guilt took over you as you realise that you had failed to account such jarring clues. Francessca delivered tea to Alistair after he was already confirmed to be feeling unwell and she only had a burn with no blistering; which is the natural reaction to touching ricin.")
+    time.sleep(1)
+    
+    print("\n★ ENDING 6/7 ACHIEVED ★\n")
+    print("As you leave the manor, you can't help but feel a sense of regret for your hasty accusation of Francessca. Perhaps next time, you'll have to rely on more than just your gut instinct.\nAfter all, detective work isn't just about following your nose, it's about putting together all the pieces of the puzzle. And this time, you missed the mark.\nRemember, haste makes waste, but a well-brewed cup of tea is worth savoring.")
+    play_again()
+    
+  elif suspect_inspect.lower() == 'd' : # Suspects Kirton
+    ending_achieved =+ 1
+    print("The murder must be Dr Kirton Kettlewell, as the only medical professional and the most likely person to know about posion.\nHe was also caught leaving at the time of Sir Ashbury's death, he must've been running away!")
+    time.sleep(1)
+    print("As you confront Dr Kettlewell, you realise the doctor had no connection to the murder. In fact, he had shown nothing but disinterest in Alistar's death. Kind of worrisome for a doctor who's mean't to save people \nWhat doctor would risk ruining his already dying career? \n He also confirmed Alistar was feelign unwell even before going back to the livinf room where he met his demise.")
+    time.sleep(1)
+    
+    print("\n★ ENDING 7/7 ACHIEVED ★\n")
+    print("As you head out of the manor, blaming your blunt skills tonight for your lack of sleep, you regret your decision and feel the embarrased for thinking called the best detective in the world 'not', and call it in for a day, knowing that Alistar's murder is stil at large.")
+    play_again()
+intro()
+game_tut()
+explain_mech()
+start()
+prologue()
+phone_ring()
